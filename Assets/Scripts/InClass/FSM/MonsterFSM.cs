@@ -12,15 +12,24 @@ public class MonsterFSM : MonoBehaviour
     protected Animator animator;
 
     private FieldOfView fov;
-    public Transform target => fov?.FirstTarget;
+    //public Transform target => fov?.FirstTarget;
+    public Transform target => posTargets[0];
 
     public Transform[] posTargets;
     public Transform posTarget = null;
     private int posTargetsIdx = 0;
 
+
     protected virtual void Start()
     {
         fsmManager = new StateMachine<MonsterFSM>(this, new stateIdle());
+
+        //flagRoaming
+        stateIdle _stateIdle = new stateIdle();
+        _stateIdle.flagRoaming = true;
+        fsmManager.AddStateList(_stateIdle);
+
+        fsmManager.AddStateList(new stateRoaming());
         fsmManager.AddStateList(new stateMove());
         fsmManager.AddStateList(new stateAtk());
 
@@ -66,9 +75,13 @@ public class MonsterFSM : MonoBehaviour
         {
             if (!target) return false;
 
-            float distance = Vector3.Distance(transform.position, target.position);
+            if(target.tag == "Player")
+            {
+                float distance = Vector3.Distance(transform.position, target.position);
 
-            return (distance <= atkRange);
+                return (distance <= atkRange);
+            }
+            return false;
         }
     }
 
