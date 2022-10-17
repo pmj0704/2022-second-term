@@ -40,14 +40,12 @@ public class Rope : MonoBehaviour
             {
                 Debug.Log("Mesh Cost" + offMeshLinkData.offMeshLink.area);
                 Debug.Log("Has OffMeshLink");
-                //Mesh cost가 왜 6인지 모르겠습니다.
             }
 
             
 
             if (offMeshLinkData.offMeshLink != null && offMeshLinkData.offMeshLink.area == meshCost)
             {
-                Debug.Log("A");
                 return true;
             }
         }

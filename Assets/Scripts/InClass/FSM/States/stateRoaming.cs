@@ -25,6 +25,14 @@ public class stateRoaming : State<MonsterFSM>
 
     public override void OnStart()
     {
+        if(stateMachineClass?.posTarget == null)
+        {
+            stateMachineClass.SearchNextTargetPosition();
+        }
+        if(stateMachineClass?.posTarget)
+        {
+            agent.SetDestination(stateMachineClass.posTarget.position);
+        }
         //A에서 B이동후 다음 이동 때 지점이 B 그대로인 문제가 있다.
         //Transform posRoaming = stateMachineClass.getPositionNextRoaming();
 
@@ -82,6 +90,8 @@ public class stateRoaming : State<MonsterFSM>
             }
         }
     }
+
+    
 
     public override void OnEnd()
     {

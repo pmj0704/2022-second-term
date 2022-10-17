@@ -13,17 +13,13 @@ public class stateMove : State<MonsterFSM>
     private int hashMoveSpd = Animator.StringToHash("MoveSpd");
 
     public override void OnAwake()
-    {
-        animator = stateMachineClass.GetComponent<Animator>();
-        characterController = stateMachineClass.GetComponent<CharacterController>();
-        
+    {   
         agent = stateMachineClass.GetComponent<NavMeshAgent>();
     }
 
     public override void OnStart()
     {
         agent?.SetDestination(stateMachineClass.target.position);
-        animator?.SetBool(hashMove, true);
     }
 
     public override void OnUpdate(float deltaTime)
@@ -45,9 +41,6 @@ public class stateMove : State<MonsterFSM>
 
     public override void OnEnd()
     {
-        animator?.SetBool(hashMove, false);
-        animator?.SetFloat(hashMoveSpd, 0);
-
         agent.ResetPath();
     }
 }

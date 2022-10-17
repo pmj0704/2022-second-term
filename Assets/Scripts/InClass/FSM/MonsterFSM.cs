@@ -12,8 +12,8 @@ public class MonsterFSM : MonoBehaviour
     protected Animator animator;
 
     private FieldOfView fov;
-    //public Transform target => fov?.FirstTarget;
-    public Transform target => posTargets[0];
+    public Transform target => fov?.FirstTarget;
+    //public Transform target => posTargets[0];
 
     public Transform[] posTargets;
     public Transform posTarget = null;
